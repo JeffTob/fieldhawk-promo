@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Field Hawk Inspection | UAD 3.6 Property Data Collection</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --bg-soft: #0d1b2e;
+      --card: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(255, 255, 255, 0.14);
+      --text: #f6f9ff;
+      --muted: #aebbd0;
+      --brand: #4dd7ff;
+      --brand-2: #79ffbd;
+      --accent: #ffe066;
+      --danger: #ff7a90;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 8%, rgba(77, 215, 255, 0.28), transparent 32%),
+        radial-gradient(circle at 86% 12%, rgba(121, 255, 189, 0.16), transparent 32%),
+        linear-gradient(180deg, #07111f 0%, #09182a 48%, #050a12 100%);
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: rgba(7, 17, 31, 0.76);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .nav {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      font-size: 1.08rem;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #05111d;
+      font-weight: 900;
+      box-shadow: 0 12px 32px rgba(77, 215, 255, 0.25);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 20px;
+      font-weight: 750;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #04101d;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow: 0 18px 42px rgba(77, 215, 255, 0.24);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    .hero {
+      position: relative;
+      padding: 86px 0 70px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      align-items: center;
+      gap: 42px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      color: #dcefff;
+      font-size: 0.9rem;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--brand-2);
+      box-shadow: 0 0 0 7px rgba(121, 255, 189, 0.12);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3rem, 7vw, 5.7rem);
+      line-height: 0.94;
+      letter-spacing: -0.08em;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 5%, var(--brand) 48%, var(--brand-2) 92%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-copy {
+      max-width: 650px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: clamp(1.06rem, 2vw, 1.24rem);
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 32px;
+    }
+
+    .hero-proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .proof-pill {
+      padding: 10px 13px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #d7e5f8;
+      font-size: 0.9rem;
+    }
+
+    .device-stage {
+      position: relative;
+      min-height: 620px;
+      display: grid;
+      place-items: center;
+    }
+
+    .device-glow {
+      position: absolute;
+      width: 440px;
+      height: 440px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(77, 215, 255, 0.26), rgba(121, 255, 189, 0.18));
+      filter: blur(32px);
+      opacity: 0.85;
+    }
+
+    .tablet {
+      position: relative;
+      width: min(430px, 88vw);
+      border-radius: 36px;
+      padding: 16px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.25), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: var(--shadow);
+      transform: rotate(-2deg);
+    }
+
+    .tablet-screen {
+      overflow: hidden;
+      border-radius: 25px;
+      background: #f6f8fb;
+      color: #0c1726;
+      min-height: 540px;
+    }
+
+    .app-header {
+      padding: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, #0c1726, #153153);
+      color: #fff;
+    }
+
+    .app-title {
+      font-weight: 850;
+    }
+
+    .status {
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      color: #052012;
+      background: var(--brand-2);
+      font-weight: 800;
+    }
+
+    .app-body {
+      padding: 16px;
+    }
+
+    .inspection-card {
+      border-radius: 18px;
+      background: #fff;
+      padding: 14px;
+      box-shadow: 0 10px 30px rgba(18, 36, 64, 0.08);
+      margin-bottom: 12px;
+      border: 1px solid #e8edf4;
+    }
+
+    .inspection-card h3 {
+      margin: 0 0 10px;
+      font-size: 0.96rem;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 86px;
+      gap: 10px;
+      align-items: center;
+      margin-top: 8px;
+      color: #53657d;
+      font-size: 0.82rem;
+    }
+
+    .field-value {
+      height: 26px;
+      border-radius: 9px;
+      background: #eef4fb;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      margin-top: 12px;
+    }
+
+    .photo-tile {
+      aspect-ratio: 1;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #dce8f6, #b7c9dc);
+      display: grid;
+      place-items: center;
+      color: #49617b;
+      font-size: 1.3rem;
+    }
+
+    .sketch-area {
+      height: 116px;
+      margin-top: 12px;
+      border-radius: 16px;
+      background:
+        linear-gradient(90deg, rgba(24, 58, 98, 0.08) 1px, transparent 1px),
+        linear-gradient(rgba(24, 58, 98, 0.08) 1px, transparent 1px),
+        #f9fbfe;
+      background-size: 18px 18px;
+      border: 1px dashed #b8c9dc;
+      position: relative;
+    }
+
+    .sketch-box {
+      position: absolute;
+      left: 54px;
+      top: 24px;
+      width: 142px;
+      height: 62px;
+      border: 3px solid #163b65;
+      border-radius: 8px;
+    }
+
+    .floating-card {
+      position: absolute;
+      right: 0;
+      bottom: 42px;
+      width: 230px;
+      padding: 16px;
+      border-radius: 22px;
+      background: rgba(7, 17, 31, 0.86);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.42);
+    }
+
+    .floating-card strong {
+      display: block;
+      margin-bottom: 7px;
+      color: #ffffff;
+    }
+
+    .floating-card span {
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .section {
+      padding: 82px 0;
+    }
+
+    .section-heading {
+      max-width: 760px;
+      margin-bottom: 34px;
+    }
+
+    .section-kicker {
+      color: var(--brand-2);
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.78rem;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(2rem, 4.6vw, 3.65rem);
+      line-height: 1.02;
+      letter-spacing: -0.06em;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.7;
+      margin: 18px 0 0;
+    }
+    .app-carousel {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .carousel-viewport {
+      overflow: hidden;
+      width: 100%;
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.07);
+      box-shadow: var(--shadow);
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.45s ease;
+      will-change: transform;
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      padding: 18px;
+      box-sizing: border-box;
+    }
+
+    .carousel-slide img {
+      display: block;
+      width: 100%;
+      max-height: 720px;
+      object-fit: contain;
+      border-radius: 20px;
+      background: #ffffff;
+      box-shadow: 0 18px 55px rgba(0, 0, 0, 0.28);
+    }
+
+    .carousel-caption {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-top: 16px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(7, 17, 31, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .carousel-caption strong {
+      color: #ffffff;
+      font-size: 1rem;
+    }
+
+    .carousel-caption span {
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .carousel-btn {
+      width: 52px;
+      height: 52px;
+      border: 0;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 2rem;
+      line-height: 1;
+      color: #ffffff;
+      background: rgba(7, 17, 31, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: transform 0.2s ease, background 0.2s ease;
+      flex: 0 0 auto;
+    }
+
+    .carousel-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(7, 17, 31, 0.98);
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .carousel-dots .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      border: 0;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.28);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .carousel-dots .dot.active {
+      background: var(--brand);
+      transform: scale(1.15);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature-card {
+      min-height: 245px;
+      padding: 24px;
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.13);
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      font-size: 1.35rem;
+      background: rgba(77, 215, 255, 0.14);
+      border: 1px solid rgba(77, 215, 255, 0.24);
+    }
+
+    .feature-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.16rem;
+      letter-spacing: -0.02em;
+    }
+
+    .feature-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .workflow {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .workflow-panel {
+      padding: 28px;
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(255,255,255,0.13), rgba(255,255,255,0.05));
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow);
+    }
+
+    .step-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 17px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.11);
+    }
+
+    .step-number {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #04101d;
+      font-weight: 900;
+    }
+
+    .step h3 {
+      margin: 0 0 6px;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .install-banner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 22px;
+      align-items: center;
+      padding: 28px;
+      border-radius: 30px;
+      background:
+        linear-gradient(135deg, rgba(77, 215, 255, 0.2), rgba(121, 255, 189, 0.1)),
+        rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      margin-top: 22px;
+    }
+
+    .install-banner h3 {
+      margin: 0 0 8px;
+      font-size: 1.5rem;
+    }
+
+    .install-banner p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .store-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .store-badge {
+      padding: 12px 16px;
+      border-radius: 16px;
+      background: rgba(5, 12, 22, 0.56);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    .stat {
+      padding: 22px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 2rem;
+      letter-spacing: -0.06em;
+      margin-bottom: 5px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .uad-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .big-card {
+      padding: 34px;
+      border-radius: 34px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: var(--shadow);
+    }
+
+    .check-list {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0 0;
+      display: grid;
+      gap: 13px;
+    }
+
+    .check-list li {
+      display: flex;
+      gap: 11px;
+      color: #dce7f6;
+      line-height: 1.5;
+    }
+
+    .check-list li::before {
+      content: "✓";
+      flex: 0 0 25px;
+      height: 25px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: rgba(121, 255, 189, 0.16);
+      color: var(--brand-2);
+      font-weight: 900;
+    }
+
+    .cta {
+      padding-bottom: 90px;
+    }
+
+    .cta-box {
+      position: relative;
+      overflow: hidden;
+      padding: 48px;
+      border-radius: 38px;
+      background: linear-gradient(135deg, rgba(77, 215, 255, 0.23), rgba(121, 255, 189, 0.13));
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .cta-box::before {
+      content: "";
+      position: absolute;
+      width: 330px;
+      height: 330px;
+      border-radius: 50%;
+      background: rgba(255, 224, 102, 0.12);
+      right: -120px;
+      top: -120px;
+    }
+
+    .cta-box h2,
+    .cta-box p,
+    .cta-box .hero-actions {
+      position: relative;
+    }
+
+    .cta-box p {
+      max-width: 720px;
+      margin: 18px auto 0;
+      color: #d7e4f4;
+      line-height: 1.7;
+      font-size: 1.08rem;
+    }
+
+    .cta-box .hero-actions {
+      justify-content: center;
+    }
+
+    .footer {
+      padding: 30px 0 42px;
+      color: var(--muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .workflow,
+      .uad-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .device-stage {
+        min-height: auto;
+        padding-top: 28px;
+      }
+
+      .floating-card {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        width: 100%;
+        margin-top: 18px;
+      }
+
+      .feature-grid,
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .app-carousel {
+        gap: 10px;
+      }
+
+      .carousel-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 1.6rem;
+      }
+
+      .carousel-slide {
+        padding: 12px;
+      }
+
+      .carousel-caption {
+        display: block;
+      }
+
+      .carousel-caption span {
+        display: block;
+        margin-top: 6px;
+      }
+
+      .install-banner {
+        grid-template-columns: 1fr;
+      }
+
+      .store-badges {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 58px;
+      }
+
+      .feature-grid,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-box {
+        padding: 34px 22px;
+      }
+
+      .tablet {
+        transform: none;
+      }
+
+      .app-carousel {
+        display: block;
+      }
+
+      .carousel-btn {
+        position: absolute;
+        top: 46%;
+        transform: translateY(-50%);
+        z-index: 3;
+      }
+
+      .carousel-btn:hover {
+        transform: translateY(-50%);
+      }
+
+      .carousel-btn.prev {
+        left: 10px;
+      }
+
+      .carousel-btn.next {
+        right: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="page-shell nav">
+      <a href="#top" class="brand" aria-label="Field Hawk Inspection home">
+        <span class="brand-mark">FH</span>
+        <span>Field Hawk Inspection</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#screenshots">Screenshots</a>
+        <a href="#features">Features</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#uad">UAD 3.6</a>
+        <a href="#install">Install</a>
+        <a href="#nighthawk">NightHawk</a>
+      </nav>
+      <a class="btn btn-primary" href="#demo">Request Demo</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="page-shell hero-grid">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot"></span> Fully integrated with NightHawk for modern UAD 3.6 field inspections</div>
+          <h1>Collect property data, photos, and sketches with <span class="gradient-text">field-ready speed.</span></h1>
+          <p class="hero-copy">
+            Field Hawk Inspection is a dynamic inspection web app fully integrated with NightHawk, designed to help appraisers capture structured UAD 3.6 property data directly at the property. Add sections as needed, collect photos, complete sketch details, and keep the inspection organized from start to finish.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#demo">Schedule a Walkthrough</a>
+            <a class="btn btn-secondary" href="#features">Explore Features</a>
+          </div>
+          <div class="hero-proof">
+            <span class="proof-pill">Dynamic UAD 3.6 Sections</span>
+            <span class="proof-pill">Photo Capture</span>
+            <span class="proof-pill">Sketch Support</span>
+            <span class="proof-pill">iPad & Android Ready</span>
+            <span class="proof-pill">NightHawk Integrated</span>
+          </div>
+        </div>
+
+        <div class="device-stage" aria-label="Field Hawk Inspection app preview">
+          <div class="device-glow"></div>
+          <div class="tablet">
+            <div class="tablet-screen">
+              <div class="app-header">
+                <div>
+                  <div class="app-title">Field Hawk</div>
+                  <small>Subject Property Inspection</small>
+                </div>
+                <span class="status">Live</span>
+              </div>
+              <div class="app-body">
+                <div class="inspection-card">
+                  <h3>Subject Property</h3>
+                  <div class="field-row"><span>Property Address</span><span class="field-value"></span></div>
+                  <div class="field-row"><span>Property Type</span><span class="field-value"></span></div>
+                  <div class="field-row"><span>Condition / Quality</span><span class="field-value"></span></div>
+                </div>
+                <div class="inspection-card">
+                  <h3>Photo Collection</h3>
+                  <div class="photo-grid">
+                    <div class="photo-tile">🏠</div>
+                    <div class="photo-tile">📷</div>
+                    <div class="photo-tile">＋</div>
+                  </div>
+                </div>
+                <div class="inspection-card">
+                  <h3>Sketch & Area Notes</h3>
+                  <div class="sketch-area"><div class="sketch-box"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="floating-card">
+            <strong>Smart field workflow</strong>
+            <span>Add only the sections you need: site, vehicle storage, dwelling, units, ADUs, outbuildings, amenities, disaster mitigation, and more.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="screenshots">
+      <div class="page-shell">
+        <div class="section-heading">
+          <div class="section-kicker">Product Preview</div>
+          <h2>See Field Hawk Inspection in action.</h2>
+          <p>
+            Explore the dashboard, dynamic inspection modules, sketch workflow, section manager,
+            photo exhibits, defects tracking, and field-ready UAD 3.6 data collection experience.
+          </p>
+        </div>
+
+        <div class="app-carousel" aria-label="Field Hawk Inspection product screenshots">
+          <button class="carousel-btn prev" type="button" aria-label="Previous slide">‹</button>
+
+          <div class="carousel-viewport">
+            <div class="carousel-track" id="carouselTrack">
+              <div class="carousel-slide">
+                <img src="images/dash.jpg" alt="Field Hawk dashboard with inspection status list">
+                <div class="carousel-caption">
+                  <strong>Inspection Dashboard</strong>
+                  <span>Manage new, in-progress, and completed inspections from one clean workspace.</span>
+                </div>
+              </div>
+
+              <div class="carousel-slide">
+                <img src="images/subject_module.jpg" alt="Subject property inspection module with section list">
+                <div class="carousel-caption">
+                  <strong>Subject Property Module</strong>
+                  <span>Capture core subject property data, photos, commentary, and section details.</span>
+                </div>
+              </div>
+
+              <div class="carousel-slide">
+                <img src="images/dwelling_module.jpg" alt="Dwelling exterior inspection module">
+                <div class="carousel-caption">
+                  <strong>Dwelling Exterior Inspection</strong>
+                  <span>Document dwelling structure, quality, condition, construction method, and exterior features.</span>
+                </div>
+              </div>
+
+              <div class="carousel-slide">
+                <img src="images/site_module.jpg" alt="Site inspection module with property access and site influence table">
+                <div class="carousel-caption">
+                  <strong>Site Inspection</strong>
+                  <span>Collect access, parcel, site influence, view, utility, and property restriction details.</span>
+                </div>
+              </div>
+
+              <div class="carousel-slide">
+                <img src="images/sketch_module.jpg" alt="Sketch module with floor areas and side controls">
+                <div class="carousel-caption">
+                  <strong>Sketch Workflow</strong>
+                  <span>Create and organize sketch areas, square foot categories, dimensions, and labels.</span>
+                </div>
+              </div>
+
+              <div class="carousel-slide">
+                <img src="images/unit_module.jpg" alt="Unit interior inspection module with defects and photo exhibits">
+                <div class="carousel-caption">
+                  <strong>Photos, Defects, and Unit Details</strong>
+                  <span>Connect photo exhibits and defect information directly to the correct property section.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="carousel-btn next" type="button" aria-label="Next slide">›</button>
+        </div>
+
+        <div class="carousel-dots" id="carouselDots" aria-label="Carousel slide buttons">
+          <button class="dot active" type="button" data-slide="0" aria-label="Go to slide 1"></button>
+          <button class="dot" type="button" data-slide="1" aria-label="Go to slide 2"></button>
+          <button class="dot" type="button" data-slide="2" aria-label="Go to slide 3"></button>
+          <button class="dot" type="button" data-slide="3" aria-label="Go to slide 4"></button>
+          <button class="dot" type="button" data-slide="4" aria-label="Go to slide 5"></button>
+          <button class="dot" type="button" data-slide="5" aria-label="Go to slide 6"></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="page-shell">
+        <div class="section-heading">
+          <div class="section-kicker">Why Field Hawk</div>
+          <h2>A cleaner way to inspect, document, and organize property data.</h2>
+          <p>Field Hawk is designed around real inspection work: fast input, flexible sections, photos in context, and structured data ready for modern appraisal workflows.</p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="icon">⚡</div>
+            <h3>Dynamic Data Collection</h3>
+            <p>Load only the sections needed for the property. Add rows, images, outbuildings, ADUs, vehicle storage, and other property details without forcing a rigid form.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="icon">📷</div>
+            <h3>Property Photos in Context</h3>
+            <p>Capture or upload photos directly inside the related section, helping users connect images to the correct inspection item instead of sorting them later.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="icon">✍️</div>
+            <h3>Sketch-Friendly Workflow</h3>
+            <p>Support sketch notes, area references, room layout details, and property structure information so field observations stay connected to the inspection record.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="icon">📱</div>
+            <h3>Installable on iPad & Android</h3>
+            <p>Use Field Hawk as a browser-based web app that can be installed on supported iPad and Android devices for quick access from the home screen.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="icon">🧩</div>
+            <h3>Modular Inspection Sections</h3>
+            <p>Subject property, site, dwelling, unit, vehicle storage, outbuilding, manufactured home, amenities, and disaster mitigation can be organized as modular blocks.</p>
+          </article>
+
+          <article class="feature-card" id="nighthawk">
+            <div class="icon">🦅</div>
+            <h3>Fully Integrated with NightHawk</h3>
+            <p>Field Hawk connects with the NightHawk workflow so collected field data, photos, sketch details, and UAD 3.6 inspection sections can move smoothly into the appraisal production process.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="workflow">
+      <div class="page-shell workflow">
+        <div class="section-heading">
+          <div class="section-kicker">Field Workflow</div>
+          <h2>Built around how inspections actually happen.</h2>
+          <p>Start with the subject property, add only what applies, document each area with photos, and keep the structure of the property clear from the beginning.</p>
+          <div class="stats">
+            <div class="stat"><strong>1</strong><span>Single field workspace</span></div>
+            <div class="stat"><strong>12+</strong><span>Expandable inspection sections</span></div>
+            <div class="stat"><strong>UAD</strong><span>3.6-aligned data collection</span></div>
+            <div class="stat"><strong>NH</strong><span>NightHawk integrated workflow</span></div>
+          </div>
+        </div>
+
+        <div class="workflow-panel">
+          <div class="step-list">
+            <div class="step">
+              <div class="step-number">1</div>
+              <div>
+                <h3>Open the inspection</h3>
+                <p>Start a new property file and enter the core subject property information.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-number">2</div>
+              <div>
+                <h3>Add dynamic sections</h3>
+                <p>Bring in site, dwelling, unit, vehicle storage, outbuilding, ADU, amenities, or other modules only when they apply.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-number">3</div>
+              <div>
+                <h3>Capture photos and sketch details</h3>
+                <p>Attach photos, sketch notes, area details, and field observations directly to the matching section.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-number">4</div>
+              <div>
+                <h3>Review and prepare data</h3>
+                <p>Review missing fields, organize photos, and prepare structured data for the next reporting or UAD 3.6 workflow.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="uad">
+      <div class="page-shell">
+        <div class="section-heading">
+          <div class="section-kicker">UAD 3.6 Ready</div>
+          <h2>Designed for structured appraisal data, not just notes.</h2>
+          <p>Field Hawk helps organize inspection details in a way that supports cleaner downstream reporting, review, and data consistency.</p>
+        </div>
+
+        <div class="uad-panel">
+          <div class="big-card">
+            <h2>Collect more complete property data.</h2>
+            <ul class="check-list">
+              <li>Subject property details and property condition observations.</li>
+              <li>Site, view, influence, vehicle storage, and amenity information.</li>
+              <li>Multiple dwellings, units, ADUs, and outbuildings when applicable.</li>
+              <li>Photo exhibits and Defects information connected to the correct property section.</li>
+            </ul>
+          </div>
+
+          <div class="big-card">
+            <h2>Reduce rework after the inspection.</h2>
+            <ul class="check-list">
+              <li>Keep inspection notes, photos, and section data together.</li>
+              <li>Use guided modules instead of scattered paper notes.</li>
+              <li>Review missing items before leaving the property.</li>
+              <li>Support a smoother transition into UAD 3.6 reporting workflows.</li>
+              <li>Fully integrated with NightHawk to support a connected field-to-report workflow.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="install-banner" id="install">
+          <div>
+            <h3>Install on iPad and Android devices</h3>
+            <p>Field Hawk can work as an installable web app, giving users fast home-screen access without needing a traditional app store deployment for every update.</p>
+          </div>
+          <div class="store-badges">
+            <span class="store-badge">iPad Ready</span>
+            <span class="store-badge">Android Ready</span>
+            <span class="store-badge">Browser Based</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="demo">
+      <div class="page-shell">
+        <div class="cta-box">
+          <h2>Ready to modernize field inspections?</h2>
+          <p>Field Hawk Inspection gives appraisers a faster, cleaner way to collect UAD 3.6 property data, capture photos, document sketch details, and organize everything before the report is built — fully connected with NightHawk for a smoother production workflow.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="mailto:info@fieldhawkinspection.com?subject=Field%20Hawk%20Inspection%20Demo">Request Demo</a>
+            <a class="btn btn-secondary" href="#top">Back to Top</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="page-shell footer-inner">
+      <span>© 2026 Bradford Technologies, Inc. All Rights Reserved.</span>
+      <span>Dynamic property data collection for modern appraisal workflows.</span>
+    </div>
+  </footer>
+  <script>
+    (function () {
+      const track = document.getElementById('carouselTrack');
+      const dots = Array.from(document.querySelectorAll('#carouselDots .dot'));
+      const prevBtn = document.querySelector('.carousel-btn.prev');
+      const nextBtn = document.querySelector('.carousel-btn.next');
+
+      if (!track || !dots.length || !prevBtn || !nextBtn) return;
+
+      const slides = Array.from(track.querySelectorAll('.carousel-slide'));
+      let currentIndex = 0;
+      let autoPlay = null;
+
+      function updateCarousel(index) {
+        currentIndex = index;
+        track.style.transform = `translateX(-${index * 100}%)`;
+
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === index);
+        });
+      }
+
+      function nextSlide() {
+        updateCarousel((currentIndex + 1) % slides.length);
+      }
+
+      function prevSlide() {
+        updateCarousel((currentIndex - 1 + slides.length) % slides.length);
+      }
+
+      function startAutoPlay() {
+        stopAutoPlay();
+        autoPlay = setInterval(nextSlide, 4500);
+      }
+
+      function stopAutoPlay() {
+        if (autoPlay) clearInterval(autoPlay);
+      }
+
+      nextBtn.addEventListener('click', function () {
+        nextSlide();
+        startAutoPlay();
+      });
+
+      prevBtn.addEventListener('click', function () {
+        prevSlide();
+        startAutoPlay();
+      });
+
+      dots.forEach(function (dot, index) {
+        dot.addEventListener('click', function () {
+          updateCarousel(index);
+          startAutoPlay();
+        });
+      });
+
+      const carousel = document.getElementById('screenshots');
+      if (carousel) {
+        carousel.addEventListener('mouseenter', stopAutoPlay);
+        carousel.addEventListener('mouseleave', startAutoPlay);
+      }
+
+      updateCarousel(0);
+      startAutoPlay();
+    })();
+  </script>
+</body>
+</html>
