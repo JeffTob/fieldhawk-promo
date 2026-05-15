@@ -6,7 +6,7 @@
   <title>Field Hawk Inspection | UAD 3.6 Property Data Collection</title>
   <style>
     :root {
-      --bg: #07111f;
+      --bg:  #07111f;
       --bg-soft: #0d1b2e;
       --card: rgba(255, 255, 255, 0.08);
       --card-border: rgba(255, 255, 255, 0.14);
@@ -54,7 +54,8 @@
       top: 0;
       z-index: 50;
       backdrop-filter: blur(18px);
-      background: rgba(7, 17, 31, 0.76);
+      /*background: rgba(7, 17, 31, 0.76);*/
+      background: #fff;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
@@ -75,7 +76,7 @@
       font-size: 1.08rem;
     }
 
-    .brand-mark {
+    /*.brand-mark {
       width: 42px;
       height: 42px;
       border-radius: 14px;
@@ -85,18 +86,27 @@
       color: #05111d;
       font-weight: 900;
       box-shadow: 0 12px 32px rgba(77, 215, 255, 0.25);
+    }*/
+
+    .brand-mark {
+      width: 64px;
+      height: auto;
+      display: block;
+      border-radius: 0;
+      background: none;
+      box-shadow: none;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
       gap: 22px;
-      color: var(--muted);
+      color: #000;
       font-size: 0.94rem;
     }
 
     .nav-links a:hover {
-      color: var(--text);
+      color: #2b538a
     }
 
     .btn {
@@ -653,6 +663,10 @@
       margin-bottom: 5px;
     }
 
+    .text-color {
+      color: #000;
+    }
+
     .stat span {
       color: var(--muted);
       font-size: 0.92rem;
@@ -758,6 +772,42 @@
       flex-wrap: wrap;
       font-size: 0.92rem;
     }
+
+    /**************************/
+     .install-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .install-qr {
+      width: 128px;
+      padding: 9px;
+      border-radius: 18px;
+      background: #ffffff;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.24);
+      text-align: center;
+    }
+
+    .install-qr img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .install-qr span {
+      display: block;
+      margin-top: 7px;
+      color: #07111f;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+
+    /**************************/
 
     @media (max-width: 980px) {
       .hero-grid,
@@ -867,8 +917,12 @@
   <header class="topbar">
     <div class="page-shell nav">
       <a href="#top" class="brand" aria-label="Field Hawk Inspection home">
-        <span class="brand-mark">FH</span>
-        <span>Field Hawk Inspection</span>
+        <img
+          class="brand-mark"
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAG4AAABVCAYAAACo5tGVAAAv/ElEQVR4nJV9efxkRXXv99S93f3r3zL7/JhhhmVmYEAWGXYFZBNBJYLGaEBAI4li8GkWQ6JEcScaeSZoJOpzN0+fRtyCCyIuPJa4sckyrOPAwOy/feu+99Z5f1SdqlO3e/TzGnp+3ffeqjp11u85Vfc2zc7OAgDAAAhgZoD8d5YPAPu/IICIAAYIBHkx+WbM4RgRpZ85XodwGcvQgQyQG5fYfVajgB2R0mnaNwNEHPuWhr4/BoFYnSRHUKQ4EqZpl64iyY5iuYTDsdq8iQI/9sUXOUdqLsm1MgnynPKncmZhG4OtDOI7gAWBQL4By1zdBZ4ZvjPWTAdS0hSv4kzdtUyO2YpQ6YGNH4P9GXKMZ+rTO8k0PJH6Gq+MXh1SLQmXccooRGa7bv0ZP3cGUoETJcIL42r6uFdorin1NGHPo2AwwVDckVzsSVok2sMAwyYjR4PUOsg9NGrDSNVV80ozeB8C15YpE2dOmC4flX3Xe+nzUkLxWtdjZaL9/RTl/+cVFO8PXEdwiolgF6E5Bck7vczlQkCbM8PayOkoXP29iqMlRLr+RGOMMalmK43t0b5AbPC7gS6nDMqNkG6mFM1bhnIk4VwyGvf5rOiUponbQ+9LW6VIJtCbTK2XTzLPpC1UW9IkJcxHbr1/Za/FVhoGyVPigyEWyAjxhkEgE4kToQEEaxmk4qJmQOzXnwtuMFpA4v/3KfRo8RQYEoUNJjCxYryaj1bvqHE9VlaP34nAwjj+nHLFFH10TfCkmyCELKLoAfTlvlPpO2cf20IQlU685jrL48Qa+74qgEOsMkFLWAaz1gnCcq+lJU7OT4DFv2toIv9S7YwKnl5pklaGYIQe9lHbM4pJ9UyRYQGk/QG3G+QuMTtQ6bBBAGPG4wOh2IRLU4UCqfimT8a4QwBytgBgoeXCPuYlHkR9T6ZCMggpTGC9x3MCIOs1XqwniRvaMtT4gEeV0bpY/UssTqUWPKl2DPCWnLA6MjvhiQIu2kQotbbEYsMQ3DOu9tZieaIU+1D/aPGs+lc0ycc8CI05CcQ2lWQIPcl8iJ3nJOeamKGER55BUbvDTESgwe3BW6L0S2FyMlGS2CWu1SuXfsU4ol1rnSF1odY/C4NJIUlNPsfjPd159xeE2CeuJTlEOl8gVZAEbQLOW4irtDZaAgNga/2FXp9ZSYs4aRxYJW4nejmAAAMHcoyh2I5830QAWYAJlhlkCJbhwEzCS+c+JFZq/xFzQ3dNcJPhQgasdX/JgCgD5Q0gM0J+KjMJb9bCVl2gKmEZIJOBxEpZI4a613Df4hyi0rO1LvwoXkMpls5z5WUT4YpgveBkAOstTgdhq92Wp4MUEAC8BSRxxQMK9lmgcbwjsgHOC2OZCYaU0GXscI0bP2pjtGat/YFJ5OOK5G0mc8JCBS4LcHcKWBgbxfzY8VTMfh+2BNg6uvMmkA9cQI3hJ7k58iC1l4AaQ4BpOeu3NsxfPAZHTaojifqB3jN1oOOtPKhcGuC88OR6gMbG9nrCBMZzlL5mQl27NEitaU0YSI6pqoB+Q6HRniqLp5R0oEYUXBiAEaslZABjQGBQdwI8u2stTW55mqa2ATO7gM44UEyDynnAVoDlOAuTgSkDTAPIW0BrCeyiNaBlhwCLD1pOgyvH0FqCigmwFsw2zMGR6JUmckUBDcWQKC1Pv1I8mWDwXBwOaeGlglNWFjoK8TYNponGCIKQc9rVBffoBeMVQFxJEB7JNN21xkR3K3EyRq8+JTIQTN5wSG1yK+yOexk770E2vQVUzIJg4YJxBWLre2CQ1fPKAMpAxoCyHGxaYM5crt8cAEbWAiuOBlYeuQiLD55maqEquz6mU5BFEhRV796ZJ0eT8iIQzgevn0oa+pUITqyz7p6cfJRFwsUn8fsafIc4oJgOOGEIacZ4SE4Rq0Qhakt0fRvfseRx4iJdTMyQ5wBNPNGotv68Wz11F8z0szCZgcmMi6OUgxtDsK3lQHMxOG96y7QxBloG2y5QzIK6E0A5D8NOIZC1wGUXtjuPqr0CtPpkZAeeuhwrDh+rKoYtS8FnjkcU5ceKMTUdV1YnvIoCUjbjm6eut8fimNkl4UJEdLgIlsc+qfaM1peQAUgKtxKsyVmYMTKraEVkAHL/BB8vn911kPDl+gcDhkCUw5gSmH4G5ZZbmbbdCZrZBqImkA+CBhaDh9eAFx8MjKwBDe93BA0sf5ibI2DTgCRSTiF9/OICqBZAnfFRntm5E9PPgGeeBWZ3gjrjMLZ0Aq4q2OZyYPRomINPOYiXbHjKUhNsS9FcaB8h8dx/UiHFhyFWASgpFFAAZ4lhOMGN9QhOf4+I0ouNY+Dsm0hT6tslxMVrVZwTTTImTlPHv9BOFAVgGGSNBjC3A+XWnzM/dRtoZgdQLgBZG2bpBmDViaDRozfQotEnkY+AKYNl6xROsVNSIVc4MD7kOAsnMjCwQLUALIzDjm9h3v0gePwxmIXdMGUBylrg5jLw/ieA1p9Ndnh/2KJ0luwnHly6BnT1qkvCwjTWB/QZ2evEURec8xrW51aA9SsE3vSQ2p6GKamvj4LiIAQhTIMRQ+QrGymIkWvFwxoAyJpoNAyK7b94yez93/h+Y+pJZGAU1sAsORSNQ18Ms+ZEMq02bFl6F0ZwZYv+Rd56vCR9QiINEbK8ASILO7ML5dbbmZ++HfnMNjSabdjSomrvD3PsJcdhv033lFWZCiYBbTUbkvxUhybSQq3nhv7Y2NgYkipJTYgcqir6eITh4tpiZFaVED9pgfGshEgwScJNZILA4t8AWUBZjowXsPDod3h+83fRsBWQD4AH98fA+heiefBpZNqLYIsObBURH6gfMxIe9LzStMXP3VYgACZrgEwGO7kN5ZZb2Wy/C41qEsaWKNAGHfHHoHXnUImmd/FiJn3VQym7xLYYGPstAYV2497i5GWVy1R+EdbaxGxDFV7DIplwYIj4aE+uD8YufyOQEeE7wbnYpdClByGUNUELOzH34H9yufXnMCaDHTwArQNPx/D6UwmDK2Bt5eqhxgTGhLwUSK3t9whN6IltVDwCQoECWeboG3v4aN764/vN7ntgqnlYMwgc8AJkR1xElRkEVzZNYdTwkWf6K6cX7EN4ND42DlYCYiAuqIIBtt4KAR33WJl/SNIlbglXKOVR9BacxLfQlgyMV1Cx1KzVBi/sxtgvbmDsfgAERrbyWCx67p9uai1fd19Zxb6iC/KCE4uWmOzPxdV8iclIEaCiNtpJTU3ZFS2MIeS2g+rZX3L1+LeRze+EoRzV8qPQOPZysq1R2KoEDCEpi9TgfWTUPgRVv2x8fDyxOFneEYuLrtMLzwuZg/lHgSf5lj/Fyu3VaU0SbR+DDKQmyTDZALCwEztu+5+cT/8O3BhGe915WHnCJcQgVEUXlBmAVT1UBfC+7rEOq3suUgxy2hpBAlTfHkoLP5qDbfDMdnR//QluTj2CrLKoRg5FdtJbqGiPwrKFLw30FUwIV1r5taUqwwIzTK11YHICJkK8iIx2Xapg6c0r2CpHIqTregVdoyut9ZYtGDm60089b8edn2CafBIYXoPFm16H0RNfQ1VVueTXZMJbEUFi2QnQqClNch69siNWFqoVO/zlwBIyhO7cHKrmKPLj3kzlipNhTQYz9Tiquz/LjYU9MJT5qlSNmAQE1YjwypEUp/2FJrgsQGmDciX+b7SmuOgaw2wKVxO6mCE7NIIC/J4XWwtkTVA1h733fPUuu+dBYGg1lhz32jeNbDidiqLyhV/jGWc888QTUXhHoao5q3fIMRAtJ02FwoWqSFFbuwwFhgxsS3BrJfJjXk/lmnNRIgeNPYDq7i9yxguO5qC83oMp4MLscUA/wv1YAtiMMq0Yd1DLs0Qo/m1q0DqIXacMQeYULMIfSHK1QFRoa9BsNrHrvq9y55lfgAdXYfQFV20aOeCkT5UVh/Z6fqxoBDmtdm8ptZGSlrAt+aL9X8I80YVU4OJjYqEg0IUKZWMxGsdfTuW6C1wxY88vgfs/z5mJe3ZiESN2nIIU/VYLx/5DcJVJkiw+PRAUReTFilju0panFKWv0lBSkZHeQrpggUYzx56Hb+KpzbcgHxzF6ElXXDG46rD7up0OjMl913qFwld5ONRdAJbidDo3KbOJgN3JmhtkJUcJCVLmC7Ovs9cZDXuBgi06RYXGcy6gcvXpYCqBbXcAW3/qhOeL2xLxtA/SwtJHtdBYYpxuTEp7otWZkGcRGVCA7dQzcPyufXnvcrzkxcJEtgCZHN3xJy7ce983kWXA8mMvwuCaYz7dnZ+FMZlnqlZLjtwOLsypsaQrYcJW3GGQSqRPxx3lWUK/QeAcx3SMUcqirJEAYovKtJEd+WpaWHIiitlJdDf/EDS73RkGK7AnAv99YUTctB/AEJGPF72lKO0ejHZxdUEGYRs1a3FprBghzPATZYZbD2MUVYXMWIw/+tNvz+7eguWbLsXidWeQLdn3q/gFRascTxJmRC6G70rRyGm7pDjsFSJ4AIh7Eh+mdKTG37AiT5pbjhbDJbi9Ao0T3kgzi49EsXszZu+/kZsDrRSpB/2r7ZXRb9Iy8YJL407qMjXEh6FgbQERyF8YN3ky/rv0hcRnOsapWAjAVhZoNNGd3PLq8c0/wuhRF2DVMX9MpdUx0E9Gu1/RekV3mEey9BB5yhRBiGOc+Ht/rB+a6ZEXRcvyoqY+wMZtjiphRvZDY9Prztpjh7HroZ9g4vGfcqM14JP52M6RwWpYiuOpPj3O0D5bzVFDf/ICSxuG6geRX6pR7qNeVA5CTDRU0BlheHAIYw/94Gutpeux5vmvo24V3YjmfIhvzFGYfQJFCq2j81YeEeKgtFPvYUb4HO09DuPp6evlnMUaIlRFgYFVh/8MG87DWFHgd3d8BcX0LoCMX8DmOK+eV71jd5ECJ9G5B+EYN7AxxgvKuUUjcU6dD8IDPKJDOC6C7yXCVeSbA4MoJ544euyZJ7HqhIveTa0l4KrrmFrjitDWg4aB4GpcjEFAhmJJgkNYYq4k0GKN0AZdh+WxlFerD3lH0EeBQjsGYLDsiHOo0z4QU2NPYecjtzEZ2eeDJG729iMOMtJmek9LH9EyEnca4ovxglRC08Cl7r44TQOcMrhRW60GHvvl9+4fXnM8Fq3d9D5bVq4vP4+YuKduiEQxVCyKQVyprwSRUBXyICf1olEIQdiCfsXwhXmslMKfDy43trccyupgthhcsharN12I3WNj2L3l1yjn9gTFFFQc0G9ifRJaols1CXOD1UG5NKVlSihhIhQFGVGniYDHE67BjvHWR8bANBqYnZnEQtXC6qPOfCGyhjtPAg50fCTvBlMMJiTLFDXSFNgRgxJB8jxPmcJL7EyVYqhIAwliPyJs5aminnD6BsLq/aqNz6dFq4/ExM5HMbPzifeZzBfiSdEvnUctU0rhlWlmZgYB3dRIDFUPFkFyzLk4BtKAGUJFIWp834CveeDjRE4FskYbzK6ix+y3NgTLo6gISnH2FQNEeJoufUXfxUyKRyT6xXGQCCc2kHlCfY58CIInh47zPMPW+27mh265HodsOh+HnHUFFYVFlmXKDbu+Wc2FZUu9V4RcLorh2+cKqlYXZ0dBEWSOyhmEawkEa22Yp8kzZCZDWZSwSvgkmk0GGeXeMmUhSIzdQkJxEGDC7n0ohVfPcKXbsu22DbFjivEMdeejhbsKSE1oYp1iGRLXZC6GgpuMkvQuN8iugrU5Vh9yMj35m3W8d9uDWF92YPK2Uk4EQ3Auk6MIOKiSTwdEPhSDoHad1Octx43UCgPChI95LiUwWY7xsQk8+PCjNy90ugAIed5EozmARquNRnMAzUYTJm+CshxkGjBZjjxvuHejiWazgUbDvd3xHFmeI8tymL7vDCbv993AZBmyzCDPjPcmsQaZWkyqEC7DiW63hydBiVRb7S6t20FnqwqtkVGMHnoy5qZ3YmbHQ29stFpu+4aEIkm5oL1wijNy7VmcxkdNEi0PvtELNCyOMqIWaiygtMdai9ICn/nSN869445f87KlS7F02VIMtltoNjKY3Dj0aQi5yZDnGfLMIDMGWZ4hy3MYk/lrXI5ojIErs8rA0R0r9uvDiUBGhoexevUohtotLBoZwppVq/569eqV17daTbeQzA4FShthVrfo4tmdezE+Pvmdufm5CzqdDqxlNPIcixcN37R2/1UvW7Z0EUCEqrLR8CCOj1DZElRZrDxg05t23f+jT45tfeBTy9ef8mnreV9jZUCs+jgRQLMzM0n4r2tauvePFMqL5+tL7AGV+XaGCBNTs7j5ltv4Y5/8Dzz+xFNoDrRgjIFlG/e4BPfk2eaRqkOAAoA9DdZzhd2eyQRFituuv8nfRkaEZp4hM0C71cLo0iU46siNuPAlZ+PMM59PzUYDVeW3KhiDoqzwk9vu4u/cdCs2P/oEpqZnMdfpoiwrgIHMEAbbLey/ehRnnXEyLn7l+bTf6AoURaF4oxB1nqM7N477vvtPPNhs4viLP0RVxX4R2YUSW3O7MSL7T05wMYDKSbEozQg5mwgVEYH1W7fykApgRrPZwp6xKXzsU1/lL3zxPzE3N4fW0CCy3G1ErWyl+vBuIRPN99bOfi+k/EWl1Vq9TNKPyz0i0o0zYoAMOp0CvLCAl5x3Oj724atpydIlYGuxe+9eXPWOf+Lv3/wTmIEhZHnD1U1JVtzd2liWZygqYG5yAocfchC+9JkP/fX6gw+8vtvpuHDiGAUyxo1tCJt/+mmefPJOnPraj1E2uEK0EQw/NWFgH+AYtp06oKEwKeucBRKNo//nGAfFLer8zZDf5uatxmQZiqKL5UuGce07r6Q7b/0K/cPb3oRNR2zEooUmbGcBZacDW5aArWDYwlgGSguUDFiAyxJk3W5kwIKCHgqs928BM5KsKxxN1tPOImln0c12G62lS/FfN9+G819xOd9+x6/ZMuGm797CN9/8E7RGliHL3JpbVXZgiy5QFuCqQFV0MdzIsHrZCIYWL8ZDjz6Fl7/yyn+9/4HHvp5nDRjEIoUTNyMzGUZWrsPsxF7M7912HtiCrVPCeC9+H7TvZUCzszOQorqGNKTimrteu9GIIMWF1kw0ebm4GKKGE2yWAwxMTs/i8d89873Hn9j60q1bt2H7jt2Ynp6BW8YhNBtNNBpNZLnBzt278au7H0S3LB36DJBe+QKle3p8J0G1/BhABoIrdpcZFPNzWL9mFFf/w1twysmb6O/f9WG+8aZb0WpkblMS3HXwRQjDFle84RIsH12GGz79dUxNz2J6YgwnH3cErrv26k8eftiGvyTokMKgLMfep3976X9/+e1fft6Fb8GKI88jW5aCgtSMWP2rvJzL46Bgb8w9ZJdUzOEI6W2VMT0QXkRnK3BHM1Bkq5juCZ1fWEC7PQhrGWVZoiwqLMzNYdu27bf/9oGHT73jV3fj7gc249mde91eTA43PasBouSozzFBZiIwHf9kd5gDVhZVt8DKxcO44eMfeHRiz66NV7z1GlhqoKgWkIV4a4JHGRkeQlkWmO3GNKPszGPTUYfhC5+8jtasGUVVlpGvWYa5qe2447Nv5cNPfhkOPOW1VBaFVyBKhKblIwg4JyDu+fGT0YAjuk8VZJWQVJqSoJ8oUPYC1jfvKQECGGg1cevPfsbv+9D1yPIm8qyBudk5jE9OY3xyGp2FBZi84S0v8/fKEZiMmltMdgINCtAEVfJJZIzB7MEOxzkByFpNbH12F/7x6g9ufNvfvQmjyxZhx+QCUFHsz7s1MsD03BzI5A5gMAHI0Ggvwq/ueRhXv++j/KVPf5gqKw88AMgCjeYwGoNLMbv3GRCqCLCCUgtfNT/d57wW0YN0WVAkIpPTykENqiTaLq5UG7zCrpSDuIvu9E40hpaj6Bqcc/ZZtNCx/I1v3oR77nsQu/eOgRnIsgzDw4MIm0rYgmG8r3ebdV2qkBDSh0YK1LnGdQRtIdGSGeDKYmjRCB5+eheuetd1mJqeQ8Xs9pYEwMDxegaqogtXOPdul4FWewD33v8gdu+exNKlgyiK0uEkZmRZhubQIszN7kV8ikUsQCSvJAwR8hjTEIQV6nWsBEHRgECC8iJfQr4ThI7YQLlhZiDLCcXcXvzmW9fy4ae/7rplG06+yhYlXvqiM+gFp5yIx5743YO/uvu3R/ziN/dh8yNPYueePZifW0DRLcEgl/uBMDjUwkCzifmFKipOvSwVAri39hCa1dYoL0R5YgNRFGmW5xifnA6iJ2OcwniQQWRQVhW68/M46rlHYdPRz8GSkRGYLMO2bc/g/951FzrzM5ie62D58mHn5iW5NhmagyOo5sZCOOpVOMVKERtRfLIQQwOSmtaGuO/J7ZO7RT71+mX9Ell3Zna/am7Xo8io/Dsiukq2DywabuOETUceecLxR+Py174aMzPzmJ6dv3S+UxyeZWYy87HNGJobm5p55Y03/uCsG797M7p+v35QvJ7HWaVuKLCHCA6yyj4bDeOcEPMsCwhPXCvYApkr47UHmvjgB67GhRe+kIYGBtBoNAAwut0CP/nZbfy5L38DoytGQMyhgC6a32gOojs3BoK/c3YfrKvzO3du0Zu8vkApaigs+zgimZDkVonQgpBTlBe/uIl35ia/TlmJrDVwJUGq45nrxzLYlmgaYNniQSxZPPQf1lr8+Kd38cObn0BhLZ7Y8jvcfff92LFrL7LmAIy/TzvcWE+uXuruM5ex5f52RVb94WIBMCt4QL48JkpsCTANdIsO1owux0eufSfOPuNkMsY9XqQsCpg8Q7PZxEvOO4fOOP00DLQaPjarbRhkQFkGmMyFAqpC9SRyqy40V8/Nk6X2QLyOA30Mhz32lG0AocapWBKlnQhPHFS3uwDLBBjTkbU9JgrKoGrjsFUFZsLs7DR+8L3v4KHHn8F8t0CWNdBotIDSgo3EmcLle80cA+02HB7w22w4EK/4UCXAK5m/MFFqs35ebFxOOtDI8e6r/xYvPON5DnhwFApb6+RLwGC7FUpg4hJj9LAweRNi3bqITl5o6XYI9zlP3V4KJOq1M1JBvT5A+BBK/4gtwyZ+xKfXmaa7Z83aVmBMXbO8VedZDhDhjy98CT3/pONx9/0P8933PozNjz2JHTt3Y3pmHpWtMNxu4cAD1+K4TUcia7Twmc9+BeNT08ibmdvlVS8hhThed++sbq4RLxNroxYAVSXefOXrccH5Z1Nlq3h7tHTh+WgZQBXjq6xYMBnAlrBVB82BET90xALBjBLDiq9c4GwkGlG76g047oDSoCa9SlmNMj6hRxjSXrL6pWQa3+eyewOI/h19XvHRHP6vMTj4oLXYsP4gesXLzkWn00W3KFBVlb+1yhW1f3jLbfyZL3wNU9PTyHLjNiN5AoiVYgbL0nfnKJcJRkCz/gEuxmQoFuZx+ikn4aq//gsiWyHP4uaoRADMSumVBfm/1pYo56cxst8Gn5+pcpyiE6odQO4hbMHfwpm3Zni0wPQli6s+VqsJewdX863RV0eHOrTswB/krWGU3Zkeiw+dRz0K1Y/KVqiqCiBCs5FhaHAAz2x7Bt/7/q388MOP4b/v24ynnt2DorLIWm1YW4FgQSz1v0pRFgC9Y1mYjIAauPJaUB6Dsupi3QH74R+v+stvNhsZytKlI9o6EoCmBUmal4SymEd3ZgKLjt6gZh/z5BhnOQJC1q5SSK1ZmgCQIDz1rCthaNib0QfO1itgwhdrK7QHRzAwMoru3ATcrVwWCdBJdDV+cqsFvhDLcEI0GfZMTOJnd/4Sj2/dDqYMWeZSVGstYCvYogvTbGCg3VbMSRXT6Z+NzPVaT8RgY5xld+Zw+aWvxBGHb3hltyiRybqjxLY+Kyes473v3RhCd3bs2LLbwdK1R1DllgNiCCLVV/JQIPfKUXupvhFsRRQmxHXvOhC1qeeJAglLlADYCc4AWLRyAzrTY7C2cJNkK+Lpgb9hEiTgJRrH6v1W4u1/92a67JJX4977H+Rf/Oa3eOLxrdi7ZxwgxtDwEA4/bD0OXHcwbvj0l7Fj1+5Y8lJFc6EvACNf7LVkQaaDid27cNlFF+Kyi19OWe4SbSeT/lvrehA3VN8AFsafvjtvtdFesgadbkfljymAUgYbvuSavQmrBGgE59YDEMOx0ETQZnK1aJuYOoLvX7nuSIxvuRe2mINFM5hktOgeTXCpArGiSugE1qxeibX7n0UvPud0LHS6KIoyUGgt49qPfoqf3bELjWYr3BrsXlbFo7hPxcEQBkyOzswcXnruWfjItddQo9Fwy0teW63UdPu86ktfwsGqKjG5cyuW7n8EQiUjln8CiElf0auZZGkmuUDHrqjtbhcax3ojB+NTAR5h8uLYdWmIQCiLEsvWHk1Vdxbl3IS/N6CP2sJdr9f82DKstbDWuphnLcqqQqfbRWehA1tVGGg1MDQ4gJGhNmZn5/H2d13Hn/vyt5A1Wq5Pk7mcyq+qy9YBuUNWrskaTRRzczj37NPw4Q9cfVm71UBZFg4x2liv7H1aRf+XUweCLWYxN/YU9tt40jsqv/hGtbdG2wF7eJ4nrjLZf5KK0P/rVwh6iNFfol1qC028LxGKYgEDI6MYaA9hfteTvHj5OqoW5hIhhQDN9YAviiNgII4gFceyW6EsSywsdPC+D17PX/vWLRhcvsw9CkoKBd7jJ0/kg4XcA1EWJSa3P4WLL7kI737n39DoymWoKhufeqtmVi9G9PBIQWvKMnSndh5puyWWrNr4oaLbcWPiD/AuuEaKgpMSmpR1epo5dKIICFgxXOMgqyTmfsdWiE01uEwANQcxuN9GjG/fghVHZbBkklpe7DoN+Ckj4NxWIIVRWus5afDhj/47/59v/QBDy5bDlm6zUnDZAUCRUlYDNhkqW6HRMHjn1VfhLW+5nAbbLZRV5Z5WhJj7xlWUfVtasvGAgTzPML3zsQcGl65BNjCMsihBeZYooGqsPkTexF1eir/JJhx/jlHvMokIKsPnQIDkYdp6ZZqGDIqiwvB+G9/Qmd2Fcn4Sed6E+N7IXCBRIpm9J0g291hrURQFyrICmQy/e3rntX/79+/nz335RrSG2qiKjnsqQzIvDn26yOoejZhlOawFjjnmaFx55Z/RYHsAZSmW6JCt7GQLSghKSHX6L3TKCr130eUsxp7djMVrnoOK3bPD9vkSWWlGQt074MwtgocwOCJzYm7gPgdAxvIIYNT8fFx6T4A3A+6GB4uR/TZ8JmsOYHLbI5cbeY4kU2JZukhM4biFrSrYskC3KFBWJdrtNmAMbvz2j/iKN7/jHV//5g+RtQbc5gSWfE7erk+SjabBilxO1my28NBDT+CrX/8eG2NgDLmdZ8Ygy9xOs7gdIW7fkAkG6EQUbmoC3N6U2V2Pn7YwOYZFqzeSe5xGrLr0WJwckXFEXFNTU06C2j+L70dkel8XVcM9SRc1VxLOKwRD5B6itvOhm7kzvgPrTnstVTD+WZeczCGpK/jHDlq2yLIGms0WmAx+fscv+RP/9ln8+Ke3w8JgcNEilN2ut47Mg48M0NYsKJYA5nCnJUxG6HS6MET47lc+8aMTjj3sPGPIPzBA9oW4t1XlNIJ2m9FTEAAmg5wqPPqzj3OFZdh4xmXEFfuNTFpMYr1CZ43TRBFVav8JAJZYnpcWukvezADb+IYN61R14QX706HT92FthVUbT6X5ye2Y3vH4KSb0HXjoWaBQJRlMzcxjy9Yd7/z1vZt/+bFPfYlfcfEVfNnr34rv3fJz5AODGFq0CLYsg1VI3ZCtBaq42cj4Z3zZisG28mkCw1YWA60BdLsV3vGej5x7932b/6vT6aLT6aDoln6ntqxB9gK7enhguArL9K5HT392y2M4+IQ/Ird6kYIuSqeNmm1E3s7MzCTJrQ6GKt4nLjDdZi2gJA4UHjRDkqCqAQXiBuFZNJotjD15xzWdiV3vXf3cF5NFI+1Tib+qKuSNBm79+X/z+9//L9g7NoWZboG5+XlkeYbB9iAqa9HtdJAb8mUuf1esyWArvwhKjk3t9gDYAjOzc2jkOSpmVJ0CjcFBZCZDljfQmZ/DkRvX4W1vfT3OO+dUkge65bm/odOvxPdLBZw1e39RzePR27/I7SWH4qBjz6Wy6LobZFROKnTVcF/wghKTjeZOtA9v/n7rouRMzDF/cjlUfCf7SayF9bkWszrn/3P/y3qeQVF0MXrIqe+jPENn4pkNlGXJo6k0Q9wWOYvnnbiJ3vCGS8AZYWZhActXrMDQ0DAm9+zF5N49GBgYgLWypdvAmAzj42Moii6sLZFlBK4K/MXrX4MLX3Ye5sfHYG2JdquFTcccgYxc6asqumgNDOKBR36HN/3Ve/CRj/4v3rt3Aq2WywfdHGP410oWvllGluUYf/ahv7LcxPrjzqWyKPwaYuR9/MzJMcmnmeKqRXjeYFymiTVG5sh4cY9S8LTeLVolzKqqAnDRApa3m6nEBE+M19SFosSSAzbR1K6tj2cokyzA0R2nRkQYHhzA6y95JX31C9d/8cznH4fxPbswNz2OM848Gdf/ywdw+iknYWpiCibPQWQwPjaBF51zFjZuPBS2KsFgLFs0ghefefI3jzx8nVPW0oKLLq76mzfiVS9/Ccqii7zRBNsKw0ODsGRw3cc/hzf85dX82c9/jSvrQZKVJ9AqECUGwwyYHFVnHHuffuRfDzz6POpWpY+3gCCXCGfYC0ZPXhmXl4UJ8SfJ/qOmi6WxtU5IlXwXq7SBeBFeJddKW7m+st6SrPvuxyEyqIoKzZFVyNtL/sfUjidPa+R5fIR+klOYoFwLnQ6OOeqwP/v4R66hj/7T1fj8v/8z/vn9/3DlzPge/OY392J48TCYLRZmZ3Hpa/4El136akyP7UWrNYDpqWk895ijsHrV6CuXjAwjHxxGnhns3TuG2++4C3/+uj/54BGHrYMtuxgccBUYLgosXrIEU5MTGJ+ccZ5Dnhrf47k8oDKELLPYveUeXjy6DoPL9g+71OrP9iJpLbhMo3lG+HUvgGAcOvN3T1obBKFBiJXjfou4tQ7RhbZiVeozB9fqrRLxGHvUKGCG2e3FqCxh0eqNn+jMTJ2+MLELJs/6Bmf2VpdlboPq6lUrcPGrXkYvPe8smp2auOCrX/s2do6PY2jxCBbm5/CC007CP779Svrxj27B9p27YQmg0uLcs0/F6H4rsGHDQV9dtWoFGAyTGdxx590YGR5650V/cj7Gn30Gh64/EO96x5vwivPPwgeu+Vt87rP/Sm/884sIsIgbaRVxHBECE2Hs2cdfVJbAynXHE4OQmSyKV64l+B0AEd2E0KJsUR42YGLe5pnpGQlvRSJ5q1CZVS6TYd3tQx5Vur9ViIGMyuVb1p2z/hySmFmFeEiNQSxevf5aDmi1fm+cm4K4arkvrSordDsdHHX0US+59tr34MjDD8HTmx/Fc9atxwff/bb3bt++/ZabfngH8oEhTE/M4NhjN+HFLzqTmBkbD13/mo2HrAMzY2TxIuzcPY6dO/f8+NANByDPDf7o3NPw8peeTTd8/L106Z++lA7Yf6WLkQki87dVx4zZAayyC6a8s/bwU4nygT5lMSdg8nwOuwxYEn1XS43zd4Pm9T6sF6TcSSpPRXdVpfgEcfibAyGoMSR9DEsE+CfLujVPAqxPIA353frq2ZKqKF6WJfKBxWi1nT4ZtWTSb5sF/H1nJs+8/2ececomuuG6az789a99++/Pe/G5D61YseQ9113zBZ6ZW8DgcAuNRo6LX3U+Vq9agbIssWRkEGv3X4VfMGNhdhaLVy3HyPDwLWvXrDznf//Hx/m0U0+kypao5rqwDGQZoZHnkJpnmmOp9AcAZQ0sX7XhNgk38ixonRnJUk+ypNkT3HRux6DJiQk3/yS22bizN3mcA4tsfMKqBtUP0PbClPxRBAaGf+yGqnjLTf/kH7/hca/Lv7wbUjlmyOEDBtZsiq49yzKXrrHFs9t34e3X/Avf9+AjmJ+bwcH7r8CXPv8JWrt21N1o2GrhAx/6N77zrl/juUc9By86+zSccuqJlGeORlvZ+CtfiaL35DreciI94ZOfhxZYQjfQE/OkjYzFSoA0MTHhUaIzmfDLVhL3BP35/+SpSG4rnCAoKVFRbUBKFCXOj8AwyEwUnBHhIv7uQHwMhwmClgnUV8uDGD2/rE9JXLEkw+TMPB7avOXB3Xv2HLF86SKcceqJVFYlwITMEPaOT4EBjAwNotnI3UYmIJ2XGs9PUyQS8k5BkjrkudbCC4Y+G7Y6aglLm3AHrNChBCcP00aIWwjIT9cMrXWwRhJypz02+OJwIo7t2hP8fnrE0o7snCIvPLE0EaI88tcLTW5LjhYc3WayMScomWYkuX0n/s4feXU6nfDjFgQ3TlWVKMsSWebvgHXZc0/hQfaPJhs9lBuvW1VQNI5ii/9SvDFfiVHuww/KH3Jh98plUAEiYccuEASjtUPhm+DWYqyjAF0VyTGIyzWBPIuKCYbhmGidtYXE2a84WPntOY7CC5PYV7VCMdTd+cpYWFgITDR6/YstysrF5EbDr1CwMFz3K4+2SJ2dk288RomGSVhS8ZABeVwHB2yQ9qhtPDntP+TiJhkOMYrJyo/gRY5LO/G1QNy2TfEBdBQ1NNFJH3k5DhAYVBHB+G2C7JFksCg1AbEAEWhQRHJ01SQWqCW4+IksC2dCbgQOvzUg7aJVC62ap159a1wNDznVZRS/rY/0tSFmebrlV6o0qvEf6nVizdGcfRXD7eUQRnCYgGiJ3AAi29Chzqle3bVew5MJywVx/moSojgATKwaWMvOfcr1hCCIeOdr1GY9jjsmTJHtd2FWiavT8UjTk2yrU8JgUr5HNSZYpIS4kRV71Bkok443nNTvXeht5+aSB1CiJ8CRII0WCRy/SxcxqkbfLcG5ZgHROiigVnGdAaFaH5QNQYq3kN1U/kcGxV0ld82qPyRMl2NeGbWncMeVP0s+pUKLLl7NRvrxfGGt5dpNJh3rtZPAFnWBKFU/9AlopuZxH6FHlmq1Nh3AOWvZRh3wUE2NhLSwHgfSzRHI942Di/MykDgizGIfDxxpelWB9bBhwuFXGjmOoZkY0R1UXIoK0NN/H6GF49AhNs6zxmN3XO2o0rINLsuHDp10cDiuxvRfDXsieyr4SnKyShxiQ6IhFImWJRsRWlJj1LMWxVBWANUVaZrS1YHevR6qA+6j0eDoihUN2v36Dmsn0176iE5ZhaibokbHOii3rG2C1IdAkKa736julYcisAq4LNruXVIdwMqF8barGFydFsYdvMKcoFiK+JCkC+yVyfT3J5q42Pc+7ijS9CR3IQWrhz8fgxSTPqkZ2EchxPPUKznqAuGF7jLBCLpTSkcIoa7ftfDpgDAgcXMSizge0x1FsOIPcmRQjA/R90vyGSZFMb7Vp8zgJOnWRdzU98dxUon7+JkwJo0wuvIixQLdNmpZnF9U2JSRfXVtH8cE5/7eK/s1FDI8n3NJuoV0DnHKW4G4pGBFQmo6koPV7lxwFYoZVj+lvNY+WLd8149X1Em29KaS3Sggjk8hR+S3bwB5YgRBIULVruel/Fl9N3Li0ASBIsqZNb09bRhGrFA14qSH6JEiMaRO+32VrklMqANHAI/+Yu6kxI4ABhDdXcI1pZrancdJR+KS+qUuZwWmmVRYCStkPE5I4OQ8+/9ToatVsOTVH5D0Io8/YDs9rx7rpPRLwn5dXEimpx6XITA/WFWqAD7h1bcb64AVERPUV0gcSk7GPjV4cQJzZSbjP7tnPptEmGlZSdKOWN6SsThBkxKvARXxFH9665/xVRNWcEZq/j1NNMN7Y1/as47fcgmnh5PUxJ3wrpLUcc+CkHRFe6yDjzheH3fmL+aEnWoboAorUoIiim5SdjT3aHSoUQaKEe0mdlzHDLLCoOuNPcpQL5+R4qEIK/HBkZGIetKHF7XLlVlRzU+zNjmhXac+fnyT1rH9BLXbU9YUAW9KTQJxPeE6oslUSTUkVscJbuuFfp5z7a+8jXqWYx2JJQxNLD19/aEbM2IXhFRz/Cy0UicKvK9+9gFU6qavHnrqgYJqSdBczGNc03du9TIguJkgU+69LrhKDo3iUM5hpVou7pFUjDOJxva6L63t/o++xzwBHrVWIV6i76seW8XS+kYzPX3qHa+HSKSoPKGL4nVBdklBgFRpzR03uprv2mu7kA8xCU6qDlqVktJTnIVywkpYYj0mWlBNaElc63GYijbNQI5vl7v7PRxpyAgN/uBtUfs0IT+fcF7m4M7F3+/Zd9dByeu0eyuPh/t3kofnqtVAoc5zAOO2EISzceBQL3SlfYVV0uAd9sfXXF8/2C+/ayDXQ48rgyelIA7+uo7YdImXsQ832QecpNan+/HHvGeJj0+U3wJIk/XUY4g3qMW1pDIUP0RvH5VE+vt/7vJTC7Dio+oAAAAASUVORK5CYII="
+          alt="Field Hawk logo"
+        />
+        <span class="text-color">FieldHawk Inspection</span>
       </a>
       <nav class="nav-links" aria-label="Primary navigation">
         <a href="#screenshots">Screenshots</a>
@@ -878,7 +932,7 @@
         <a href="#install">Install</a>
         <a href="#nighthawk">NightHawk</a>
       </nav>
-      <a class="btn btn-primary" href="#demo">Request Demo</a>
+      <a class="btn btn-primary" href="https://fieldhawkapp.onrender.com/">Start Inspection</a>
     </div>
   </header>
 
@@ -1153,7 +1207,7 @@
           </div>
         </div>
 
-        <div class="install-banner" id="install">
+        <!--<div class="install-banner" id="install">
           <div>
             <h3>Install on iPad and Android devices</h3>
             <p>Field Hawk can work as an installable web app, giving users fast home-screen access without needing a traditional app store deployment for every update.</p>
@@ -1163,7 +1217,41 @@
             <span class="store-badge">Android Ready</span>
             <span class="store-badge">Browser Based</span>
           </div>
+        </div>-->
+
+        <div class="install-banner" id="install">
+          <div>
+            <h3>Install on iPad and Android devices</h3>
+            <p>
+              Field Hawk can work as an installable web app, giving users fast home-screen access
+              without needing a traditional app store deployment for every update.
+              Scan the QR code to open Field Hawk and install it on your device.
+            </p>
+          </div>
+
+          <div class="install-actions">
+            <div class="store-badges">
+              <span class="store-badge">iPad Ready</span>
+              <span class="store-badge">Android Ready</span>
+              <span class="store-badge">Browser Based</span>
+            </div>
+
+            <a
+              class="install-qr"
+              href="https://fieldhawkapp.onrender.com/"
+              target="_blank"
+              rel="noopener"
+              aria-label="Scan QR code to install Field Hawk"
+            >
+              <img
+                src="images/fieldhawk-qr.png"
+                alt="QR code to open and install Field Hawk Inspection"
+              />
+              <span>Scan to Install</span>
+            </a>
+          </div>
         </div>
+
       </div>
     </section>
 
@@ -1173,7 +1261,7 @@
           <h2>Ready to modernize field inspections?</h2>
           <p>Field Hawk Inspection gives appraisers a faster, cleaner way to collect UAD 3.6 property data, capture photos, document sketch details, and organize everything before the report is built — fully connected with NightHawk for a smoother production workflow.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="mailto:info@fieldhawkinspection.com?subject=Field%20Hawk%20Inspection%20Demo">Request Demo</a>
+            <a class="btn btn-primary" href="https://bradfordsoftware.com/contact/">Request Demo</a>
             <a class="btn btn-secondary" href="#top">Back to Top</a>
           </div>
         </div>
